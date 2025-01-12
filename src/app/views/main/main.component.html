@@ -1,0 +1,40 @@
+<div class="search" [class.moved-to-top]="searchComplete && this.filmData && this.filmData.films.length > 0"
+                    [class.expand-search]="isSearchExpanded">
+  <input [(ngModel)]="keyword" (keydown)="keydownHandler($event)" type="text" name="search" id="search" placeholder=" "
+         autocomplete="off">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" *ngIf="!searchComplete" (click)="handleSearch()">
+    <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <svg class="svg-search" (click)="toggleSearchExpand()" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" *ngIf="searchComplete">
+    <path
+      d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+</div>
+
+<section class="search-results" *ngIf="searchComplete && this.filmData && this.filmData.films.length > 0; else nothingFound"
+         [ngStyle]="{'opacity': isDataLoaded ? '1' : '0'}"
+         [ngClass]="{'data-loaded': isDataLoaded}">
+  <ul class="movies-list">
+    <li class="movie-card" *ngFor="let movie of filmData?.films">
+      <div class="movie-image">
+        <img class="movie-image-img" [src]="movie.posterUrlPreview" alt="">
+        <button class="watch-button" (click)="watchMovie(movie.filmId)">Смотреть</button>
+      </div>
+      <div class="movie-info">
+        <header class="movie-info-title">
+          <h1 *ngIf="movie.nameRu">{{ movie.nameRu }} <span>({{movie.year}})</span></h1> <h2 *ngIf="movie.nameEn">{{ movie.nameEn }}</h2>
+        </header>
+        <p *ngIf="movie.genres">Жанр:
+          <span *ngFor="let genres of movie.genres; let last = last">{{genres.genre}}<ng-container *ngIf="!last">, </ng-container></span>
+        </p>
+        <p *ngIf="movie.description">Описание: {{ truncateDescription(movie.description, 250) }}</p>
+      </div>
+    </li>
+  </ul>
+</section>
+<ng-template #nothingFound>
+  <div class="no-results" *ngIf="this.filmData && this.filmData.films.length === 0">
+    <h1 class="no-results-title">Ничего не найдено</h1>
+  </div>
+</ng-template>
