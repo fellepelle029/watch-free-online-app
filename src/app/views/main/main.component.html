@@ -1,4 +1,4 @@
-<div class="search" [class.moved-to-top]="searchComplete && this.filmData && this.filmData.films.length > 0"
+<div class="search" [class.search-collapse]="searchComplete && this.filmData && this.filmData.films.length > 0"
                     [class.expand-search]="isSearchExpanded">
   <input [(ngModel)]="keyword" (keydown)="keydownHandler($event)" type="text" name="search" id="search" placeholder=" "
          autocomplete="off">
@@ -12,25 +12,15 @@
   </svg>
 </div>
 
+<!--<section class="recommended">-->
+<!--  <h1>Так как вы смотрели: название фильма</h1>-->
+<!--</section>-->
+
 <section class="search-results" *ngIf="searchComplete && this.filmData && this.filmData.films.length > 0; else nothingFound"
          [ngStyle]="{'opacity': isDataLoaded ? '1' : '0'}"
          [ngClass]="{'data-loaded': isDataLoaded}">
   <ul class="movies-list">
-    <li class="movie-card" *ngFor="let movie of filmData?.films">
-      <div class="movie-image">
-        <img class="movie-image-img" [src]="movie.posterUrlPreview" alt="">
-        <button class="watch-button" (click)="watchMovie(movie.filmId)">Смотреть</button>
-      </div>
-      <div class="movie-info">
-        <header class="movie-info-title">
-          <h1 *ngIf="movie.nameRu">{{ movie.nameRu }} <span>({{movie.year}})</span></h1> <h2 *ngIf="movie.nameEn">{{ movie.nameEn }}</h2>
-        </header>
-        <p *ngIf="movie.genres">Жанр:
-          <span *ngFor="let genres of movie.genres; let last = last">{{genres.genre}}<ng-container *ngIf="!last">, </ng-container></span>
-        </p>
-        <p *ngIf="movie.description">Описание: {{ truncateDescription(movie.description, 250) }}</p>
-      </div>
-    </li>
+    <app-movie-card *ngFor="let movie of filmData?.films" [movie]="movie"></app-movie-card>
   </ul>
 </section>
 <ng-template #nothingFound>

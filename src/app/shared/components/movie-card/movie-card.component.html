@@ -1,0 +1,21 @@
+<li class="movie-card" *ngIf="movie"
+    [ngStyle]="{'background-image': 'url(' + getBackgroundImage(movie) + ')'}">
+  <div class="movie-info">
+    <h1 *ngIf="movie.nameRu">{{ movie.nameRu }} <span>({{ movie.year }})</span></h1>
+    <h2 *ngIf="movie.nameEn">{{ movie.nameEn }}</h2>
+
+    <p *ngIf="movie.genres">Жанр:
+      <span *ngFor="let genres of movie.genres; let last = last">{{ genres.genre }}
+        <ng-container *ngIf="!last">, </ng-container></span>
+    </p>
+    <p class="chronometric" *ngIf="movie.filmLength">
+      {{ convertToMinutes(movie.filmLength) }} минут
+    </p>
+    <p *ngIf="movie.description">Описание: {{ truncateDescription(movie.description, 250) }}</p>
+  </div>
+  <button class="watch-button" (click)="watchMovie(movie.filmId)">Смотреть</button>
+
+</li>
+
+
+<!--<img class="movie-image-img" [src]="movie.posterUrlPreview" alt="">-->

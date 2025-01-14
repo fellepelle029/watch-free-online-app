@@ -11,7 +11,7 @@ h2 {
 
 .search {
   position: absolute;
-  top: 50%;
+  top: 40px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -19,9 +19,8 @@ h2 {
   width: 40%;
   transition: top 0.6s cubic-bezier(.85, .49, .08, .82) 0.4s;
 
-  &.moved-to-top {
+  &.search-collapse {
     justify-content: center;
-    top: 20px;
 
     input {
       animation: inputMoving 0.4s ease forwards;
@@ -48,12 +47,12 @@ h2 {
     font-size: 1.5rem;
     padding: 20px 20px;
     border: 1px solid rgba(204, 204, 204, 0.40);
-    border-radius: 12px;
     outline: none;
     background-color: transparent;
     box-sizing: border-box;
     color: $color-main;
     transition: padding 1s ease, border-color 0.18s ease-in-out;
+    border-radius: 4px;
 
     &:focus, &:not(:placeholder-shown) {
       border-color: rgba(204, 204, 204);
@@ -64,8 +63,8 @@ h2 {
     cursor: pointer;
     padding: 15px;
     box-sizing: border-box;
-    border-radius: 12px;
     height: 71px;
+    border-radius: 4px;
     border: 1px solid rgba(204, 204, 204, 0.40);
     fill: rgba(204, 204, 204, 0.40);
     margin-left: 20px;
@@ -87,6 +86,43 @@ h2 {
     }
   }
 }
+
+.recommended {
+  position: absolute;
+  top: 36%;
+  left: 5%;
+
+  h1 {
+    font-size: 1.7rem;
+    font-weight: 400 ;
+  }
+}
+
+.search-results {
+  position: relative;
+  top: 150px;
+  max-width: 900px;
+  padding: 0 15px;
+  margin: 0 auto;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.data-loaded {
+    opacity: 1;
+  }
+
+  .movies-list {
+  }
+}
+
+.no-results {
+  position: absolute;
+  top: 66%;
+  left: 36%;
+  transform: translateX(-50%);
+}
+
+
 
 @keyframes inputMoving {
   0% {
@@ -120,65 +156,3 @@ h2 {
   }
 }
 
-.search-results {
-  position: relative;
-  top: 180px;
-  max-width: 900px;
-  padding: 0 15px;
-  margin: 0 auto;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-
-  &.data-loaded {
-    opacity: 1;
-  }
-
-  .movies-list {
-    .movie-card {
-      display: flex;
-      margin-bottom: 50px;
-
-      .movie-image {
-        display: flex;
-        flex-direction: column;
-        margin-right: 25px;
-        .movie-image-img {
-          max-width: 195px;
-        }
-
-        .watch-button {
-          border: 1px solid $color-main;
-          padding: 10px 0;
-          text-align: center;
-          color: $color-main;
-          border-radius: 6px;
-          margin-top: 10px;
-          cursor: pointer;
-          transition: background-color 0.15s ease-in-out;
-
-          &:hover {
-            background-color: #363636;
-          }
-        }
-      }
-
-      .movie-info {
-        .movie-info-title {
-          margin-bottom: 7px;
-
-        }
-
-        p {
-          margin-bottom: 7px;
-        }
-      }
-    }
-  }
-}
-
-.no-results {
-  position: absolute;
-  top: 66%;
-  left: 36%;
-  transform: translateX(-50%);
-}
