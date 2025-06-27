@@ -1,6 +1,6 @@
-@import "fonts";
-@import "variables";
-@import "reset";
+@use "fonts";
+@use "variables" as *;
+@use "reset";
 
 body {
   background-color: $color-main-background;

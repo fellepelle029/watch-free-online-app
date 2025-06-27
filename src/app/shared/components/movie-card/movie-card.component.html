@@ -13,7 +13,10 @@
     </p>
     <p *ngIf="movie.description">Описание: {{ truncateDescription(movie.description, 250) }}</p>
   </div>
-  <button class="watch-button" (click)="watchMovie(movie.filmId)">Смотреть</button>
+  <button class="watch-button" (click)="watchMovie(movie.filmId)" (mousemove)="onMouseMove($event)" (mouseleave)="resetLight($event)">
+    Смотреть
+    <span class="glow" #glow></span>
+  </button>
 
 </li>
 

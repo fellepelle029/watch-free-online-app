@@ -1,8 +1,8 @@
 <div class="search" [class.search-collapse]="searchComplete && this.filmData && this.filmData.films.length > 0"
                     [class.expand-search]="isSearchExpanded">
-  <input [(ngModel)]="keyword" (keydown)="keydownHandler($event)" type="text" name="search" id="search" placeholder=" "
+  <input [(ngModel)]="keyword" (keydown)="keydownHandler($event)" type="text" name="search" id="search" placeholder="Название фильма/сериала... "
          autocomplete="off">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" *ngIf="!searchComplete" (click)="handleSearch()">
+  <svg class="svg-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" *ngIf="!searchComplete" (click)="handleSearch()">
     <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke-linecap="round" stroke-linejoin="round"></path>
   </svg>
   <svg class="svg-search" (click)="toggleSearchExpand()" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" *ngIf="searchComplete">
@@ -12,9 +12,6 @@
   </svg>
 </div>
 
-<!--<section class="recommended">-->
-<!--  <h1>Так как вы смотрели: название фильма</h1>-->
-<!--</section>-->
 
 <section class="search-results" *ngIf="searchComplete && this.filmData && this.filmData.films.length > 0; else nothingFound"
          [ngStyle]="{'opacity': isDataLoaded ? '1' : '0'}"

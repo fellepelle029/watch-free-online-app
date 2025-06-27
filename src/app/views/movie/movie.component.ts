@@ -2,13 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {HttpRequestsService} from "../../shared/services/http-requests.service";
 import {ActivatedRoute} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
-import {NgClass, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-movie',
   standalone: true,
   imports: [
-    NgIf,
     NgClass
   ],
   templateUrl: './movie.component.html',
@@ -28,7 +27,6 @@ export class MovieComponent implements OnInit{
     this.initializePlayer();
   }
 
-
   initializePlayer(): void {
     this.route.paramMap.subscribe(params => {
       this.movieId = params.get('movieId') || '';
@@ -45,17 +43,14 @@ export class MovieComponent implements OnInit{
   }
 
   findIframeUrl(response: any): void {
-    const movieSource = response.find((source: any) => source.source === 'Collaps');
-
-    if (movieSource && movieSource.iframeUrl) {
-      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(movieSource.iframeUrl);
-    } else {
-      const backupSource = response.find((source: any) => source.source === 'Videocdn');
-      if (backupSource && backupSource.iframeUrl) {
-        this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(backupSource.iframeUrl);
-      } else {
-        console.log('Iframe не найден для источников Collaps и Videocdn');
+    const preferredSources = ['Collaps', 'Videocdn', 'Turbo', 'Alloha', 'Vibix'];
+    for (const sourceName of preferredSources) {
+      const source = response.find((s: any) => s.source === sourceName && s.iframeUrl);
+      if (source) {
+        this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(source.iframeUrl);
+        return;
       }
     }
+    console.log('Iframe не найден ни в одном источнике');
   }
 }

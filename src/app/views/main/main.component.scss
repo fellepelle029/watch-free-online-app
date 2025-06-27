@@ -1,4 +1,4 @@
-@import "../../../assets/styles/variables";
+@use "../../../assets/styles/variables" as *;
 
 h1 {
   font-size: 1.6rem;
@@ -17,17 +17,19 @@ h2 {
   display: flex;
   align-items: center;
   width: 40%;
-  transition: top 0.6s cubic-bezier(.85, .49, .08, .82) 0.4s;
+  //transition:  top 0.6s cubic-bezier(.85, .49, .08, .82) 0.4s;
 
   &.search-collapse {
+    //transition: padding 2s ease;
     justify-content: center;
 
     input {
       animation: inputMoving 0.4s ease forwards;
       padding: 0;
+      color: transparent;
     }
 
-    svg {
+    .svg-search {
       margin-left: 0;
     }
   }
@@ -36,6 +38,7 @@ h2 {
     input {
       animation: inputExpand 0.4s ease forwards;
       margin-right: 20px;
+      color: unset;
     }
   }
 }
@@ -51,7 +54,7 @@ h2 {
     background-color: transparent;
     box-sizing: border-box;
     color: $color-main;
-    transition: padding 1s ease, border-color 0.18s ease-in-out;
+    transition: border-color 0.18s ease-in-out;
     border-radius: 4px;
 
     &:focus, &:not(:placeholder-shown) {
@@ -59,7 +62,7 @@ h2 {
     }
   }
 
-  svg {
+  .svg-arrow, .svg-search {
     cursor: pointer;
     padding: 15px;
     box-sizing: border-box;

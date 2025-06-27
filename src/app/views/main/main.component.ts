@@ -36,6 +36,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.initSearch();
+
   }
 
   private initSearch(): void {
@@ -122,6 +123,7 @@ export class MainComponent implements OnInit {
       this.handleSearch();
     }
   }
+
 
 
 }

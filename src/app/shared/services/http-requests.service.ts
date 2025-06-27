@@ -23,7 +23,9 @@ export class HttpRequestsService {
   }
 
   loadMovieById(movieId: string): Observable<MovieResponseType> {
-    return this.http.get<MovieResponseType>(`${environment.kinoboxUrl}players?kinopoisk=${movieId}&sources=turbo%2Ccollaps%2Calloha%2Cvibix%2Cvideocdn%2Chdvb%2Ckodik`)
+    return this.http.get<MovieResponseType>(
+      `https://xn--80aacocwmecldecbkmhpmjcm1t.xn--p1ai/api/film-proxy.php?kinopoisk=${movieId}`
+    );
   }
 
 }

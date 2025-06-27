@@ -1,0 +1,11 @@
+{
+  "/kinoapi": {
+    "target": "https://p.ddbb.lol",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/kinoapi": "/api"
+    },
+    "logLevel": "debug"
+  }
+}

@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
-import {Film, FilmRequestType} from "../../../../types/film-request-type";
+import {Film} from "../../../../types/film-request-type";
 import {Router} from "@angular/router";
 
 @Component({
@@ -16,6 +16,7 @@ import {Router} from "@angular/router";
 })
 export class MovieCardComponent {
   @Input() movie: Film | null = null;
+  @ViewChild('glow') glow!: ElementRef;
 
   constructor(private router: Router) {
   }
@@ -44,4 +45,24 @@ export class MovieCardComponent {
     }
     return hours * 60 + minutes;
   }
+
+
+  onMouseMove(event: MouseEvent) {
+    const button = (event.target as HTMLElement);
+    const rect = button.getBoundingClientRect();
+
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    const glowEl = this.glow.nativeElement as HTMLElement;
+    glowEl.style.opacity = '1';
+    glowEl.style.left = `${x}px`;
+    glowEl.style.top = `${y}px`;
+  }
+
+  resetLight(event: MouseEvent) {
+    const glowEl = this.glow.nativeElement as HTMLElement;
+    glowEl.style.opacity = '0';
+  }
+
 }
